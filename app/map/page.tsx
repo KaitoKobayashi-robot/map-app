@@ -7,6 +7,7 @@ import { db } from "@/lib/firebase"; // Firebase初期化ファイル
 import type { Location } from "@/types/location";
 import { MapView } from "@/app/map/components/map-content";
 import { QuerySnapshot } from "firebase-admin/firestore";
+import { Title } from "./components/title";
 
 const MapApp = () => {
   const [allLocations, setAllLocations] = useState<Location[]>([]);
@@ -50,11 +51,16 @@ const MapApp = () => {
 
   return (
     <APIProvider apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!}>
-      <MapView
-        allLocations={allLocations}
-        highlightedIds={highlightedIds}
-        highlightedPath={highlightedPath}
-      />
+      <div className="flex flex-col h-screen">
+        <Title text="盗難防止マップ" />
+        <div className="flex-grow">
+          <MapView
+            allLocations={allLocations}
+            highlightedIds={highlightedIds}
+            highlightedPath={highlightedPath}
+          />
+        </div>
+      </div>
     </APIProvider>
   );
 };

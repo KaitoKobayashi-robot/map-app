@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Map, AdvancedMarker, useMap } from "@vis.gl/react-google-maps";
+import { Map, AdvancedMarker, useMap, Pin } from "@vis.gl/react-google-maps";
 import type { Location } from "@/types/location";
 
 type MapViewProps = {
@@ -56,7 +56,7 @@ export const MapView = ({
       defaultCenter={{ lat: 35.681236, lng: 139.767125 }} // 東京駅
       defaultZoom={12}
       mapId={process.env.NEXT_PUBLIC_GOOGLE_MAPS_ID} // Map IDの利用を推奨
-      style={{ width: "100%", height: "100vh" }}
+      className="w-full h-full"
       gestureHandling={"greedy"} // スムーズな操作のため
     >
       {allLocations.map(loc => {
@@ -67,16 +67,11 @@ export const MapView = ({
             position={{ lat: loc.lat, lng: loc.lng }}
             title={loc.name}
           >
-            {/* AdvancedMarkerでは子要素としてカスタムアイコンを指定します */}
-            <img
-              src={
-                isHighlighted
-                  ? "https://maps.google.com/mapfiles/ms/icons/blue-dot.png" // 例: ハイライト用アイコン
-                  : "https://maps.google.com/mapfiles/ms/icons/red-dot.png" // 例: 通常用アイコン
-              }
-              width={isHighlighted ? 48 : 32}
-              height={isHighlighted ? 48 : 32}
-              alt={loc.name}
+            <Pin
+              background={isHighlighted ? "#4285F4" : ""}
+              borderColor={isHighlighted ? "#4285F4" : ""}
+              glyphColor={isHighlighted ? "#2c5aa2ff" : ""}
+              scale={isHighlighted ? 1.2 : 1}
             />
           </AdvancedMarker>
         );
