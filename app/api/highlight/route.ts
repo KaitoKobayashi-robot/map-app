@@ -1,11 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
-import { initializeApp, getApps, App } from "firebase-admin/app";
 import { getFirestore } from "firebase-admin/firestore";
+import { initializeApp, getApps, cert } from "firebase-admin/app";
 import { credential } from "firebase-admin";
+
+const serviceAccount = require("@/serviceAccountKey.json");
 
 // Firebase Admin SDKを初期化
 if (!getApps().length) {
-  initializeApp();
+  initializeApp({ credential: credential.cert(serviceAccount) });
 }
 
 const db = getFirestore();
@@ -24,6 +26,7 @@ export async function POST(req: NextRequest) {
 
     // Firestoreの 'highlight_status' コレクションにある 'current' ドキュメントを更新
     const highlightRef = db.collection("highlight_status").doc("current");
+    console.log("db: ", highlightRef);
     await highlightRef.set({
       highlightedIds: ids,
       updatedAt: new Date(), // Admin SDKでは new Date() を使用

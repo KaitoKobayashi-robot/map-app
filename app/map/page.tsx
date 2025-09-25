@@ -15,7 +15,12 @@ const MapApp = () => {
   useEffect(() => {
     const fetchAllLocations = async () => {
       const querySnapshot = await getDocs(collection(db, "locations"));
-      setAllLocations(querySnapshot.docs.map(doc => doc.data() as Location));
+      setAllLocations(
+        querySnapshot.docs.map(doc => ({
+          ...(doc.data() as Omit<Location, "id">),
+          id: doc.id,
+        }))
+      );
     };
     fetchAllLocations();
   }, []);

@@ -41,7 +41,7 @@ const ControlPanelApp = () => {
 
       const result = await response.json();
       console.log("API Success:", result.message);
-      alert("ハイライトを更新しました！");
+      //   alert("ハイライトを更新しました！");
     } catch (error) {
       console.error(error);
       alert("更新に失敗しました。");
