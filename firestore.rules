@@ -7,7 +7,7 @@ service cloud.firestore {
     }
     match /highlight_status/{document=**}{
       allow read;
-      allow write: if false;
+      allow write;
     }
   }
 }
