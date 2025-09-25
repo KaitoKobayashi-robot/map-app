@@ -9,15 +9,32 @@ runConfig:
 
 # Environment variables and secrets.
 # env:
-  # Configure environment variables.
-  # See https://firebase.google.com/docs/app-hosting/configure#user-defined-environment
-  # - variable: MESSAGE
-  #   value: Hello world!
-  #   availability:
-  #     - BUILD
-  #     - RUNTIME
+# Configure environment variables.
+# See https://firebase.google.com/docs/app-hosting/configure#user-defined-environment
+# - variable: MESSAGE
+#   value: Hello world!
+#   availability:
+#     - BUILD
+#     - RUNTIME
 
-  # Grant access to secrets in Cloud Secret Manager.
-  # See https://firebase.google.com/docs/app-hosting/configure#secret-parameters
-  # - variable: MY_SECRET
-  #   secret: mySecretRef
+# Grant access to secrets in Cloud Secret Manager.
+# See https://firebase.google.com/docs/app-hosting/configure#secret-parameters
+# - variable: MY_SECRET
+#   secret: mySecretRef
+env:
+  - variable: NEXT_PUBLIC_FIREBASE_API_KEY
+    value: AIzaSyC-3bThD8D3r-GBHRIQHSPCKT7cvRUyd2k
+  - variable: NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN
+    value: smooth-ripple-459804-d5.firebaseapp.com
+  - variable: NEXT_PUBLIC_FIREBASE_PROJECT_ID
+    value: smooth-ripple-459804-d5
+  - variable: NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET
+    value: smooth-ripple-459804-d5.firebasestorage.app
+  - variable: NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID
+    value: 559292429645
+  - variable: NEXT_PUBLIC_FIREBASE_APP_ID
+    value: 1:559292429645:web:729ded5c44b33d8b993304
+  - variable: NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
+    value: G-PSZYNEV91K
+  - variable: NEXT_PUBLIC_GOOGLE_MAPS_API_KEY
+    value: AIzaSyDetQ0w2q8GFsmBXfW_0-dl3jaglZnhZJM
