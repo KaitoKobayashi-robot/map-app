@@ -1,9 +1,12 @@
 import { initializeApp } from "firebase-admin/app";
 import { getFirestore, FieldValue } from "firebase-admin/firestore";
+import { setGlobalOptions } from "firebase-functions/v2";
 import { onRequest } from "firebase-functions/v2/https";
 import * as logger from "firebase-functions/logger";
 
 import cors from "cors";
+
+setGlobalOptions({ region: "asia-northeast1" });
 
 initializeApp();
 const db = getFirestore();
