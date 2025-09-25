@@ -61,8 +61,8 @@ const MapApp = () => {
             title={loc.name}
             icon={{
               url: highlightedIds.includes(loc.id)
-                ? "http://maps.google.com/mapfiles/ms/icons/yellow-dot.png" // ハイライト
-                : "http://maps.google.com/mapfiles/ms/icons/red-dot.png", // 通常
+                ? "https://maps.google.com/mapfiles/ms/icons/red-dot.png" // 例：ハイライト用のアイコン
+                : "https://maps.google.com/mapfiles/ms/icons/blue-dot.png", // 例：通常用のアイコン
               scaledSize: new window.google.maps.Size(
                 highlightedIds.includes(loc.id) ? 48 : 32,
                 highlightedIds.includes(loc.id) ? 48 : 32

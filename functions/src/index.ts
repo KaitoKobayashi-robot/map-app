@@ -11,7 +11,7 @@ setGlobalOptions({ region: "asia-northeast1" });
 initializeApp();
 const db = getFirestore();
 
-const corsHandler = cors({ origin: true });
+const corsHandler = cors({ origin: "https://smooth-ripple-459804-d5.web.app" });
 
 export const highlightMarker = onRequest(async (request, response) => {
   corsHandler(request, response, async () => {
