@@ -56,7 +56,7 @@ export const MapView = ({
     <Map
       defaultCenter={{ lat: 35.681236, lng: 139.767125 }} // 東京駅
       defaultZoom={12}
-      mapId={process.env.NEXT_PUBLIC_GOOGLE_MAPS_MAP_ID} // Map IDの利用を推奨
+      mapId={process.env.NEXT_PUBLIC_GOOGLE_MAPS_ID} // Map IDの利用を推奨
       style={{ width: "100%", height: "100vh" }}
       gestureHandling={"greedy"} // スムーズな操作のため
     >
