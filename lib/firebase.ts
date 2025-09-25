@@ -1,6 +1,5 @@
 import { initializeApp, getApp, getApps, FirebaseApp } from "firebase/app";
 import { getFirestore, Firestore } from "firebase/firestore";
-import { getAuth, Auth } from "firebase/auth";
 import { getStorage, FirebaseStorage } from "firebase/storage";
 
 const firebaseConfig = {
@@ -19,7 +18,6 @@ const app: FirebaseApp = !getApps().length
 
 // 各サービスのインスタンスに型を適用
 const db: Firestore = getFirestore(app);
-const auth: Auth = getAuth(app);
 const storage: FirebaseStorage = getStorage(app);
 
-export { app, db, auth, storage };
+export { app, db, storage };
