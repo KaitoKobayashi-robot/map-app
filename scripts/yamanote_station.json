@@ -1,0 +1,152 @@
+{
+  "tokyo-station": {
+    "name": "東京駅",
+    "lat": 35.681236,
+    "lng": 139.767125
+  },
+  "kanda-station": {
+    "name": "神田駅",
+    "lat": 35.6917,
+    "lng": 139.7708
+  },
+  "akihabara-station": {
+    "name": "秋葉原駅",
+    "lat": 35.6984,
+    "lng": 139.7731
+  },
+  "okachimachi-station": {
+    "name": "御徒町駅",
+    "lat": 35.7073,
+    "lng": 139.7746
+  },
+  "ueno-station": {
+    "name": "上野駅",
+    "lat": 35.7138,
+    "lng": 139.777
+  },
+  "uguisudani-station": {
+    "name": "鶯谷駅",
+    "lat": 35.7214,
+    "lng": 139.778
+  },
+  "nippori-station": {
+    "name": "日暮里駅",
+    "lat": 35.7278,
+    "lng": 139.771
+  },
+  "nishi-nippori-station": {
+    "name": "西日暮里駅",
+    "lat": 35.7321,
+    "lng": 139.7667
+  },
+  "tabata-station": {
+    "name": "田端駅",
+    "lat": 35.7381,
+    "lng": 139.7607
+  },
+  "komagome-station": {
+    "name": "駒込駅",
+    "lat": 35.7366,
+    "lng": 139.7466
+  },
+  "sugamo-station": {
+    "name": "巣鴨駅",
+    "lat": 35.7334,
+    "lng": 139.7394
+  },
+  "otsuka-station": {
+    "name": "大塚駅",
+    "lat": 35.7315,
+    "lng": 139.7282
+  },
+  "ikebukuro-station": {
+    "name": "池袋駅",
+    "lat": 35.7289,
+    "lng": 139.7109
+  },
+  "mejiro-station": {
+    "name": "目白駅",
+    "lat": 35.7212,
+    "lng": 139.7061
+  },
+  "takadanobaba-station": {
+    "name": "高田馬場駅",
+    "lat": 35.7126,
+    "lng": 139.7037
+  },
+  "shin-okubo-station": {
+    "name": "新大久保駅",
+    "lat": 35.7013,
+    "lng": 139.7001
+  },
+  "shinjuku-station": {
+    "name": "新宿駅",
+    "lat": 35.6909,
+    "lng": 139.7004
+  },
+  "yoyogi-station": {
+    "name": "代々木駅",
+    "lat": 35.683,
+    "lng": 139.7022
+  },
+  "harajuku-station": {
+    "name": "原宿駅",
+    "lat": 35.6702,
+    "lng": 139.7027
+  },
+  "shibuya-station": {
+    "name": "渋谷駅",
+    "lat": 35.6585,
+    "lng": 139.7013
+  },
+  "ebisu-station": {
+    "name": "恵比寿駅",
+    "lat": 35.6467,
+    "lng": 139.71
+  },
+  "meguro-station": {
+    "name": "目黒駅",
+    "lat": 35.6339,
+    "lng": 139.7158
+  },
+  "gotanda-station": {
+    "name": "五反田駅",
+    "lat": 35.6261,
+    "lng": 139.7235
+  },
+  "osaki-station": {
+    "name": "大崎駅",
+    "lat": 35.6198,
+    "lng": 139.7285
+  },
+  "shinagawa-station": {
+    "name": "品川駅",
+    "lat": 35.6302,
+    "lng": 139.74
+  },
+  "takanawa-gateway-station": {
+    "name": "高輪ゲートウェイ駅",
+    "lat": 35.6358,
+    "lng": 139.741
+  },
+  "tamachi-station": {
+    "name": "田町駅",
+    "lat": 35.6457,
+    "lng": 139.7476
+  },
+  "hamamatsucho-station": {
+    "name": "浜松町駅",
+    "lat": 35.6552,
+    "lng": 139.7571
+  },
+  "shimbashi-station": {
+    "name": "新橋駅",
+    "lat": 35.6664,
+    "lng": 139.7586
+  },
+  "yurakucho-station": {
+    "name": "有楽町駅",
+    "lat": 35.6749,
+    "lng": 139.7628
+  }
+}

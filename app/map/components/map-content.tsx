@@ -23,34 +23,33 @@ export const MapView = ({
     if (!map) return;
 
     // Polylineが未作成の場合、インスタンスを生成
-    if (!polyline) {
-      const newPolyline = new google.maps.Polyline({
-        path: highlightedPath,
-        strokeColor: "#0000FF",
-        strokeOpacity: 0.8,
-        strokeWeight: 2,
-        icons: [
-          {
-            icon: { path: "M 0,-1 0,1", strokeOpacity: 1, scale: 4 },
-            offset: "0",
-            repeat: "20px",
-          },
-        ],
-      });
-      newPolyline.setMap(map);
-      setPolyline(newPolyline);
-    } else {
-      // 既にPolylineが存在する場合はパスを更新
-      polyline.setPath(highlightedPath);
-      // 表示/非表示の切り替え
-      polyline.setVisible(highlightedPath.length > 1);
-    }
+    const newPolyline = new google.maps.Polyline({
+      path: highlightedPath,
+      strokeColor: "#0000FF",
+      strokeOpacity: 0.8,
+      strokeWeight: 0,
+      icons: [
+        {
+          icon: { path: "M 0,-1 0,1", strokeOpacity: 1, scale: 4 },
+          offset: "0",
+          repeat: "20px",
+        },
+      ],
+    });
+    newPolyline.setMap(map);
+    setPolyline(newPolyline);
 
     // コンポーネントのアンマウント時にPolylineをマップから削除
     return () => {
       polyline?.setMap(null);
     };
-  }, [map, highlightedPath, polyline]);
+  }, [map]);
+
+  useEffect(() => {
+    if (!polyline) return;
+    polyline.setPath(highlightedPath);
+    polyline.setVisible(highlightedPath.length > 1);
+  }, [polyline, highlightedPath]);
 
   return (
     <Map

@@ -26,7 +26,6 @@ export async function POST(req: NextRequest) {
 
     // Firestoreの 'highlight_status' コレクションにある 'current' ドキュメントを更新
     const highlightRef = db.collection("highlight_status").doc("current");
-    console.log("db: ", highlightRef);
     await highlightRef.set({
       highlightedIds: ids,
       updatedAt: new Date(), // Admin SDKでは new Date() を使用

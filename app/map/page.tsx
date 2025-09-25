@@ -5,7 +5,8 @@ import { APIProvider } from "@vis.gl/react-google-maps";
 import { doc, onSnapshot, collection, getDocs } from "firebase/firestore";
 import { db } from "@/lib/firebase"; // Firebase初期化ファイル
 import type { Location } from "@/types/location";
-import { MapView } from "@/app/map/components/map-content"; // 作成したMapViewコンポーネントをインポート
+import { MapView } from "@/app/map/components/map-content";
+import { QuerySnapshot } from "firebase-admin/firestore";
 
 const MapApp = () => {
   const [allLocations, setAllLocations] = useState<Location[]>([]);
@@ -13,19 +14,18 @@ const MapApp = () => {
 
   // 1. 初回にすべてのマーカー情報を取得 (変更なし)
   useEffect(() => {
-    const fetchAllLocations = async () => {
-      const querySnapshot = await getDocs(collection(db, "locations"));
-      setAllLocations(
-        querySnapshot.docs.map(doc => ({
-          ...(doc.data() as Omit<Location, "id">),
-          id: doc.id,
-        }))
-      );
-    };
-    fetchAllLocations();
+    const locationsColRef = collection(db, "locations");
+    const unsubscribe = onSnapshot(locationsColRef, querySnapshot => {
+      const locationsData = querySnapshot.docs.map(doc => ({
+        ...(doc.data() as Omit<Location, "id">),
+        id: doc.id,
+      }));
+      setAllLocations(locationsData);
+    });
+    return () => unsubscribe();
   }, []);
 
-  // 2. ハイライト状態をリアルタイムで監視 (変更なし)
+  // 2. ハイライト状態をリアルタイムで監視
   useEffect(() => {
     const highlightDocRef = doc(db, "highlight_status", "current");
 
@@ -40,7 +40,7 @@ const MapApp = () => {
     return () => unsubscribe();
   }, []);
 
-  // ハイライトされたマーカーの座標リストを計算 (変更なし)
+  // ハイライトされたマーカーの座標リストを計算
   const highlightedPath = useMemo(() => {
     // 順番を保持したい場合は、IDリストの順序に合わせてソートするなどの処理を追加
     return allLocations
