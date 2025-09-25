@@ -5,5 +5,9 @@ service cloud.firestore {
     match /locations/{document=**} {
       allow read, write;
     }
+    match /highlight_status/{document=**}{
+      allow read;
+      allow write: if false;
+    }
   }
 }
