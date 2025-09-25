@@ -9,7 +9,7 @@
     "deploy": "npm run build && firebase deploy"
   },
   "dependencies": {
-    "@react-google-maps/api": "^2.20.7",
+    "@vis.gl/react-google-maps": "^1.5.5",
     "firebase": "^12.3.0",
     "firebase-admin": "^13.5.0",
     "next": "15.5.3",
