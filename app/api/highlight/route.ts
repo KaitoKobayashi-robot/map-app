@@ -1,13 +1,15 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getFirestore } from "firebase-admin/firestore";
 import { initializeApp, getApps, cert } from "firebase-admin/app";
-import { credential } from "firebase-admin";
-
-const serviceAccount = require("@/serviceAccountKey.json");
 
 // Firebase Admin SDKを初期化
 if (!getApps().length) {
-  initializeApp({ credential: credential.cert(serviceAccount) });
+  if (process.env.NODE_ENV === "development") {
+    const serviceAccount = require("@/serviceAccountKey.json");
+    initializeApp({ credential: cert(serviceAccount) });
+  } else {
+    initializeApp();
+  }
 }
 
 const db = getFirestore();
