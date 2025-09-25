@@ -71,8 +71,8 @@ export const MapView = ({
             <img
               src={
                 isHighlighted
-                  ? "http://maps.google.com/mapfiles/ms/icons/blue-dot.png" // 例: ハイライト用アイコン
-                  : "http://maps.google.com/mapfiles/ms/icons/red-dot.png" // 例: 通常用アイコン
+                  ? "https://maps.google.com/mapfiles/ms/icons/blue-dot.png" // 例: ハイライト用アイコン
+                  : "https://maps.google.com/mapfiles/ms/icons/red-dot.png" // 例: 通常用アイコン
               }
               width={isHighlighted ? 48 : 32}
               height={isHighlighted ? 48 : 32}
