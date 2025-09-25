@@ -14,9 +14,10 @@ const ControlPanelApp = () => {
   useEffect(() => {
     const locationsColRef = collection(db, "locations");
     const unsubscribe = onSnapshot(locationsColRef, querySnapshot => {
-      const locationsData = querySnapshot.docs.map(
-        doc => doc.data() as Location
-      );
+      const locationsData = querySnapshot.docs.map(doc => ({
+        ...(doc.data() as Omit<Location, "id">),
+        id: doc.id,
+      }));
       setLocations(locationsData);
     });
     return () => unsubscribe();
