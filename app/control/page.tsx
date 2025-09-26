@@ -103,7 +103,12 @@ const ControlPanelApp = () => {
           isSubmitting={isSubmitting}
           onClick={handleSubmitHighlight}
         />
-        <ResetButton onClick={handleResetSelection} isResetting={isResetting} />
+        <div className="mt-4">
+          <ResetButton
+            onClick={handleResetSelection}
+            isResetting={isResetting}
+          />
+        </div>
       </div>
     </div>
   );
