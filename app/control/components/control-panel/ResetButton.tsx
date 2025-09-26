@@ -1,13 +1,15 @@
 interface ResetButtonProps {
   onClick: () => void;
+  isResetting: boolean;
 }
 
-const ResetButton = ({ onClick }: ResetButtonProps) => (
+const ResetButton = ({ onClick, isResetting }: ResetButtonProps) => (
   <button
     onClick={onClick}
-    className="w-full bg-red-500 text-white font-bold py-3 px-4 rounded-lg hover:bg-red-600"
+    disabled={isResetting}
+    className="w-full bg-red-500 text-white font-bold py-3 px-4 rounded-lg hover:bg-red-600 disabled:bg-gray-400"
   >
-    リセット
+    {isResetting ? "リセット中..." : "リセット"}
   </button>
 );
 

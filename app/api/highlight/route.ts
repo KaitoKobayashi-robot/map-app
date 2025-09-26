@@ -48,3 +48,27 @@ export async function POST(req: NextRequest) {
     );
   }
 }
+
+export async function DELETE(req: NextRequest) {
+  try {
+    // Firestoreの 'highlight_status' コレクションにある 'current' ドキュメントを更新
+    const highlightRef = db.collection("highlight_status").doc("current");
+    await highlightRef.update({
+      highlightedIds: [],
+    });
+
+    return NextResponse.json(
+      {
+        success: true,
+        message: "Highlighted IDs have been reset.",
+      },
+      { status: 200 }
+    );
+  } catch (error: any) {
+    console.error("Error resetting highlight status:", error);
+    return NextResponse.json(
+      { message: "Internal Server Error", error: error.message },
+      { status: 500 }
+    );
+  }
+}

@@ -13,6 +13,7 @@ const ControlPanelApp = () => {
   const [locations, setLocations] = useState<Location[]>([]);
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isResetting, setIsResetting] = useState(false);
 
   // locationsコレクションをリアルタイム監視
   useEffect(() => {
@@ -51,8 +52,22 @@ const ControlPanelApp = () => {
     );
   };
 
-  const handleResetSelection = () => {
-    setSelectedIds([]);
+  const handleResetSelection = async () => {
+    setIsResetting(true);
+    try {
+      const response = await fetch("/api/highlight", {
+        method: "DELETE",
+      });
+      if (!response.ok) throw new Error("API request failed");
+
+      const result = await response.json();
+      console.log("API Success:", result.message);
+    } catch (error) {
+      console.error(error);
+      alert("リセットに失敗しました。");
+    } finally {
+      setIsResetting(false);
+    }
   };
 
   const handleSubmitHighlight = async () => {
@@ -67,7 +82,6 @@ const ControlPanelApp = () => {
 
       const result = await response.json();
       console.log("API Success:", result.message);
-      //   alert("ハイライトを更新しました！");
     } catch (error) {
       console.error(error);
       alert("更新に失敗しました。");
@@ -90,7 +104,7 @@ const ControlPanelApp = () => {
           isSubmitting={isSubmitting}
           onClick={handleSubmitHighlight}
         />
-        <ResetButton onClick={handleResetSelection} />
+        <ResetButton onClick={handleResetSelection} isResetting={isResetting} />
       </div>
     </div>
   );
