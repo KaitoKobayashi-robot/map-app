@@ -37,6 +37,6 @@ env:
   - variable: NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
     value: G-PSZYNEV91K
   - variable: NEXT_PUBLIC_GOOGLE_MAPS_API_KEY
-    value: AIzaSyDetQ0w2q8GFsmBXfW_0-dl3jaglZnhZJM
+    secret: NEXT_PUBLIC_GOOGLE_MAPS_API_KEY
   - variable: NEXT_PUBLIC_GOOGLE_MAPS_ID
     value: b887d00286d6567b3fb27efb
