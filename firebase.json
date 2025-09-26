@@ -15,6 +15,9 @@
       "firebase-debug.*.log",
       "functions"
     ],
+    "frameworksBackend": {
+      "region": "asia-east1"
+    },
     "alwaysDeployFromSource": true
   }
 }
