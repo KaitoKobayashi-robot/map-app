@@ -4,10 +4,9 @@ import { useState, useEffect } from "react";
 import { collection, doc, onSnapshot } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import type { Location } from "@/types/location";
-import LocationList from "./components/control-panel/LocationList";
-import LocationItem from "./components/control-panel/LocationItem";
-import SubmitButton from "./components/control-panel/SubmitButton";
-import ResetButton from "./components/control-panel/ResetButton";
+import LocationList from "@/app/control/components/control-panel/LocationList";
+import SubmitButton from "@/app/control/components/control-panel/SubmitButton";
+import ResetButton from "@/app/control/components/control-panel/ResetButton";
 
 const ControlPanelApp = () => {
   const [locations, setLocations] = useState<Location[]>([]);
