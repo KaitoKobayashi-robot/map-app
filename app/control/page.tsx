@@ -1,12 +1,13 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { collection, onSnapshot } from "firebase/firestore";
+import { collection, doc, onSnapshot } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import type { Location } from "@/types/location";
 import LocationList from "./components/control-panel/LocationList";
 import LocationItem from "./components/control-panel/LocationItem";
 import SubmitButton from "./components/control-panel/SubmitButton";
+import ResetButton from "./components/control-panel/ResetButton";
 
 const ControlPanelApp = () => {
   const [locations, setLocations] = useState<Location[]>([]);
@@ -16,20 +17,42 @@ const ControlPanelApp = () => {
   // locationsコレクションをリアルタイム監視
   useEffect(() => {
     const locationsColRef = collection(db, "locations");
-    const unsubscribe = onSnapshot(locationsColRef, querySnapshot => {
+    const unsubscribeLocations = onSnapshot(locationsColRef, querySnapshot => {
       const locationsData = querySnapshot.docs.map(doc => ({
         ...(doc.data() as Omit<Location, "id">),
         id: doc.id,
       }));
       setLocations(locationsData);
     });
-    return () => unsubscribe();
+
+    const highlightDocRef = doc(db, "highlight_status", "current");
+    const unsubscribeHighlight = onSnapshot(highlightDocRef, docSnap => {
+      if (docSnap.exists()) {
+        const highlightData = docSnap.data();
+        // highlightedIdsフィールドが存在すれば、選択状態にセット
+        if (highlightData?.highlightedIds) {
+          setSelectedIds(highlightData.highlightedIds);
+        }
+      } else {
+        // ドキュメントが存在しない場合は選択をクリア
+        setSelectedIds([]);
+      }
+    });
+
+    return () => {
+      unsubscribeLocations();
+      unsubscribeHighlight();
+    };
   }, []);
 
   const handleToggleSelection = (id: string) => {
     setSelectedIds(prev =>
       prev.includes(id) ? prev.filter(i => i !== id) : [...prev, id]
     );
+  };
+
+  const handleResetSelection = () => {
+    setSelectedIds([]);
   };
 
   const handleSubmitHighlight = async () => {
@@ -67,6 +90,7 @@ const ControlPanelApp = () => {
           isSubmitting={isSubmitting}
           onClick={handleSubmitHighlight}
         />
+        <ResetButton onClick={handleResetSelection} />
       </div>
     </div>
   );
