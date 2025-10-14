@@ -53,11 +53,11 @@ export const MapView = ({
 
   return (
     <Map
-      defaultCenter={{ lat: 35.681236, lng: 139.767125 }} // 東京駅
+      defaultCenter={{ lat: 35.681236, lng: 139.767125 }}
       defaultZoom={12}
-      mapId={process.env.NEXT_PUBLIC_GOOGLE_MAPS_ID} // Map IDの利用を推奨
+      mapId={process.env.NEXT_PUBLIC_GOOGLE_MAPS_ID}
       className="w-full h-full"
-      gestureHandling={"greedy"} // スムーズな操作のため
+      gestureHandling={"greedy"}
     >
       {allLocations.map(loc => {
         const isHighlighted = highlightedIds.includes(loc.id);

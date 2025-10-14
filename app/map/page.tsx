@@ -43,9 +43,10 @@ const MapApp = () => {
 
   // ハイライトされたマーカーの座標リストを計算
   const highlightedPath = useMemo(() => {
-    // 順番を保持したい場合は、IDリストの順序に合わせてソートするなどの処理を追加
-    return allLocations
-      .filter(loc => highlightedIds.includes(loc.id))
+    const locationsMap = new Map(allLocations.map(loc => [loc.id, loc]));
+    return highlightedIds
+      .map(loc => locationsMap.get(loc))
+      .filter((loc): loc is Location => !!loc)
       .map(loc => ({ lat: loc.lat, lng: loc.lng }));
   }, [allLocations, highlightedIds]);
 

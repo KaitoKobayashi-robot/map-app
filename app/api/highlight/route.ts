@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getFirestore } from "firebase-admin/firestore";
+import { getFirestore, FieldValue } from "firebase-admin/firestore";
 import { initializeApp, getApps, cert } from "firebase-admin/app";
 
-// Firebase Admin SDKを初期化
+// Firebase Admin SDKの初期化 (変更なし)
 if (!getApps().length) {
   if (process.env.NODE_ENV === "development") {
     const serviceAccount = require("@/serviceAccountKey.json");
@@ -17,27 +17,29 @@ const db = getFirestore();
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { ids } = body;
+    const { toggledId, isCurrentlySelected } = body;
 
-    if (!ids || !Array.isArray(ids)) {
+    if (!toggledId || typeof isCurrentlySelected !== "boolean") {
       return NextResponse.json(
-        { message: 'Invalid request body. "ids" array is required.' },
+        { message: "Invalid request body." },
         { status: 400 }
       );
     }
 
-    // Firestoreの 'highlight_status' コレクションにある 'current' ドキュメントを更新
     const highlightRef = db.collection("highlight_status").doc("current");
-    await highlightRef.set({
-      highlightedIds: ids,
-      updatedAt: new Date(), // Admin SDKでは new Date() を使用
-    });
+
+    // isCurrentlySelected が true なら削除、false なら追加する
+    const updateData = {
+      highlightedIds: isCurrentlySelected
+        ? FieldValue.arrayRemove(toggledId) // 配列から要素を削除
+        : FieldValue.arrayUnion(toggledId), // 配列に要素を追加
+      updatedAt: FieldValue.serverTimestamp(),
+    };
+
+    await highlightRef.update(updateData);
 
     return NextResponse.json(
-      {
-        success: true,
-        message: `Highlighted IDs updated to: ${ids.join(", ")}`,
-      },
+      { success: true, message: "Highlight status updated efficiently." },
       { status: 200 }
     );
   } catch (error: any) {
@@ -51,7 +53,6 @@ export async function POST(req: NextRequest) {
 
 export async function DELETE(req: NextRequest) {
   try {
-    // Firestoreの 'highlight_status' コレクションにある 'current' ドキュメントを更新
     const highlightRef = db.collection("highlight_status").doc("current");
     await highlightRef.update({
       highlightedIds: [],

@@ -5,7 +5,6 @@ import { collection, doc, onSnapshot } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import type { Location } from "@/types/location";
 import LocationList from "@/app/control/components/control-panel/LocationList";
-import SubmitButton from "@/app/control/components/control-panel/SubmitButton";
 import ResetButton from "@/app/control/components/control-panel/ResetButton";
 
 const ControlPanelApp = () => {
@@ -14,7 +13,6 @@ const ControlPanelApp = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isResetting, setIsResetting] = useState(false);
 
-  // locationsコレクションをリアルタイム監視
   useEffect(() => {
     const locationsColRef = collection(db, "locations");
     const unsubscribeLocations = onSnapshot(locationsColRef, querySnapshot => {
@@ -27,16 +25,8 @@ const ControlPanelApp = () => {
 
     const highlightDocRef = doc(db, "highlight_status", "current");
     const unsubscribeHighlight = onSnapshot(highlightDocRef, docSnap => {
-      if (docSnap.exists()) {
-        const highlightData = docSnap.data();
-        // highlightedIdsフィールドが存在すれば、選択状態にセット
-        if (highlightData?.highlightedIds) {
-          setSelectedIds(highlightData.highlightedIds);
-        }
-      } else {
-        // ドキュメントが存在しない場合は選択をクリア
-        setSelectedIds([]);
-      }
+      const highlightData = docSnap.exists() ? docSnap.data() : null;
+      setSelectedIds(highlightData?.highlightedIds || []);
     });
 
     return () => {
@@ -45,37 +35,20 @@ const ControlPanelApp = () => {
     };
   }, []);
 
-  const handleToggleSelection = (id: string) => {
-    setSelectedIds(prev =>
-      prev.includes(id) ? prev.filter(i => i !== id) : [...prev, id]
-    );
-  };
+  const handleLocationToggle = async (toggledId: string) => {
+    // 1. このIDが現在選択されているかどうかを判断
+    const isCurrentlySelected = selectedIds.includes(toggledId);
 
-  const handleResetSelection = async () => {
-    setIsResetting(true);
-    try {
-      const response = await fetch("/api/highlight", {
-        method: "DELETE",
-      });
-      if (!response.ok) throw new Error("API request failed");
-
-      const result = await response.json();
-      console.log("API Success:", result.message);
-    } catch (error) {
-      console.error(error);
-      alert("リセットに失敗しました。");
-    } finally {
-      setIsResetting(false);
-    }
-  };
-
-  const handleSubmitHighlight = async () => {
+    // 2. APIに送信するデータを変更
     setIsSubmitting(true);
     try {
       const response = await fetch("/api/highlight", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ids: selectedIds }),
+        body: JSON.stringify({
+          toggledId: toggledId,
+          isCurrentlySelected: isCurrentlySelected,
+        }),
       });
       if (!response.ok) throw new Error("API request failed");
 
@@ -89,19 +62,31 @@ const ControlPanelApp = () => {
     }
   };
 
+  const handleResetSelection = async () => {
+    setIsResetting(true);
+    try {
+      const response = await fetch("/api/highlight", {
+        method: "DELETE",
+      });
+      if (!response.ok) throw new Error("API request failed");
+      const result = await response.json();
+      console.log("API Success:", result.message);
+    } catch (error) {
+      console.error(error);
+      alert("リセットに失敗しました。");
+    } finally {
+      setIsResetting(false);
+    }
+  };
+
   return (
-    <div className="container mx-auto p-8">
+    <div className="container mx-auto p-8 flex flex-col items-center">
       <h1 className="text-3xl font-bold mb-6">泥棒操作パネル</h1>
       <div className="bg-white shadow-md rounded p-6">
-        <h2 className="text-xl mb-4">マーカーを選択</h2>
         <LocationList
           locations={locations}
           selectedIds={selectedIds}
-          onToggleSelection={handleToggleSelection}
-        />
-        <SubmitButton
-          isSubmitting={isSubmitting}
-          onClick={handleSubmitHighlight}
+          onToggleSelection={handleLocationToggle}
         />
         <div className="mt-4">
           <ResetButton

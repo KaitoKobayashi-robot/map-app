@@ -13,7 +13,7 @@ const LocationItem = ({
 }: LocationItemProps) => (
   <button
     onClick={() => onToggle(location.id)}
-    className={`w-full text-left p-3 rounded-lg transition-colors ${
+    className={`w-full p-3 rounded-lg transition-colors ${
       isSelected ? "bg-blue-500 text-white" : "bg-gray-100 hover:bg-gray-200"
     }`}
   >
