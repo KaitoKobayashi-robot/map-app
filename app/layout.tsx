@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "AgriTrace",
     description: "圃場の移動軌跡を監視する地図アプリです",
-    images: "/public/AgriTrace_ogp.png",
+    images: "/AgriTrace_ogp.png",
   },
 };
 
