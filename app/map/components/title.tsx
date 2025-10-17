@@ -20,7 +20,7 @@ export const Title = ({ text }: TitleProps) => {
         onClick={() => {}}
       >
         <MapPinIcon className="h-7 w-7 text-black" />
-        <h1 className="m-0 text-2xl font-bold">{text}</h1>
+        <h1 className="m-0 text-2xl font-bold text-black">{text}</h1>
       </div>
     </header>
   );
