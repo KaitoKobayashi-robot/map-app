@@ -53,8 +53,10 @@ const MapApp = () => {
   return (
     <APIProvider apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!}>
       <div className="flex flex-col h-screen">
-        <Title text="盗難防止マップ" />
-        <div className="flex-grow">
+        <div className=" m-4  w-[50vw] absolute top-0 left-1/2 -translate-x-1/2 z-10">
+          <Title text="MAP" />
+        </div>
+        <div className="flex-grow z-0">
           <MapView
             allLocations={allLocations}
             highlightedIds={highlightedIds}
