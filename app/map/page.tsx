@@ -8,6 +8,7 @@ import type { Location } from "@/types/location";
 import { MapView } from "@/app/map/components/map-content";
 import { QuerySnapshot } from "firebase-admin/firestore";
 import { Title } from "./components/title";
+import Image from "next/image";
 
 const MapApp = () => {
   const [allLocations, setAllLocations] = useState<Location[]>([]);
@@ -53,7 +54,7 @@ const MapApp = () => {
   return (
     <APIProvider apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!}>
       <div className="flex flex-col h-screen">
-        <div className=" m-4  w-[50vw] absolute top-0 left-1/2 -translate-x-1/2 z-10">
+        <div className=" m-4  w-[70vw] absolute top-0 left-1/2 -translate-x-1/2 z-10">
           <Title text="MAP" />
         </div>
         <div className="flex-grow z-0">
