@@ -43,4 +43,4 @@ env:
   - variable: BASIC_AUTH_USER
     value: admin
   - variable: BASIC_AUTH_PASS
-    value: 1015
+    value: 39node
